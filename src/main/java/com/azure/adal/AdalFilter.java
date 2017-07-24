@@ -28,8 +28,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.microsoft.aad.adal4j.AuthenticationContext;
 import com.microsoft.aad.adal4j.AuthenticationResult;
@@ -98,8 +96,6 @@ public class AdalFilter implements Filter {
 							AuthenticationResult result = getAccessToken(oidcResponse.getAuthorizationCode(),
 									currentUri);
 							createSessionPrincipal(httpRequest, result);
-							Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-							System.out.println("Principal Name"+ auth.getName());
 						} else {
 							AuthenticationErrorResponse oidcResponse = (AuthenticationErrorResponse) authResponse;
 							throw new Exception(String.format("Request for auth code failed: %s - %s",

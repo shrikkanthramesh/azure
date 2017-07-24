@@ -22,8 +22,6 @@ public final class AuthHelper {
 	}
 
 	public static AuthenticationResult getAuthSessionObject(HttpServletRequest request) {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		System.out.println("Principal Name"+ auth.getName());
 		return (AuthenticationResult) request.getSession().getAttribute(PRINCIPAL_SESSION_NAME);
 	}
 
