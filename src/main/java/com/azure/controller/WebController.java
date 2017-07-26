@@ -6,7 +6,6 @@ import java.net.URL;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -16,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.azure.adal.AuthHelper;
 import com.azure.adal.HttpClientHelper;
 import com.azure.adal.JSONHelper;
-import com.azure.model.User;
+import com.azure.model.UserDetails;
 import com.microsoft.aad.adal4j.AuthenticationResult;
 
 @Controller
@@ -27,7 +26,6 @@ public class WebController {
     public String getDirectoryObjects(ModelMap model, HttpServletRequest httpRequest) {
         HttpSession session = httpRequest.getSession();
         AuthenticationResult result = (AuthenticationResult) session.getAttribute(AuthHelper.PRINCIPAL_SESSION_NAME);
-        System.out.println(result.getAccessToken());
         if (result == null) {
             model.addAttribute("error", new Exception("AuthenticationResult not found in session."));
             return "/error";
@@ -63,7 +61,7 @@ public class WebController {
         StringBuilder builder = new StringBuilder();
       
             JSONObject thisUserJSONObject = JSONHelper.fetchDirectoryObjectJSONObject(response);
-            User user = new User();
+            UserDetails user = new UserDetails();
             JSONHelper.convertJSONObjectToDirectoryObject(thisUserJSONObject, user);
             builder.append(user.getUserPrincipalName());
         

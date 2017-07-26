@@ -77,49 +77,6 @@ public class JSONHelper {
     }
 
     /**
-     * This method parses the skip token from a json formatted string.
-     * 
-     * @param jsonData
-     *            The JSON Formatted String.
-     * @return The skipToken.
-     * @throws Exception
-     */
-    public static String fetchNextSkiptoken(JSONObject jsonObject) throws Exception {
-        String skipToken = "";
-        // Parse the skip token out of the string.
-        skipToken = jsonObject.optJSONObject("responseMsg").optString("odata.nextLink");
-
-        if (!skipToken.equalsIgnoreCase("")) {
-            // Remove the unnecessary prefix from the skip token.
-            int index = skipToken.indexOf("$skiptoken=") + (new String("$skiptoken=")).length();
-            skipToken = skipToken.substring(index);
-        }
-        return skipToken;
-    }
-
-    /**
-     * @param jsonObject
-     * @return
-     * @throws Exception
-     */
-    public static String fetchDeltaLink(JSONObject jsonObject) throws Exception {
-        String deltaLink = "";
-        // Parse the skip token out of the string.
-        deltaLink = jsonObject.optJSONObject("responseMsg").optString("aad.deltaLink");
-        if (deltaLink == null || deltaLink.length() == 0) {
-            deltaLink = jsonObject.optJSONObject("responseMsg").optString("aad.nextLink");
-            logger.info("deltaLink empty, nextLink ->" + deltaLink);
-
-        }
-        if (!deltaLink.equalsIgnoreCase("")) {
-            // Remove the unnecessary prefix from the skip token.
-            int index = deltaLink.indexOf("deltaLink=") + (new String("deltaLink=")).length();
-            deltaLink = deltaLink.substring(index);
-        }
-        return deltaLink;
-    }
-
-    /**
      * This method would create a string consisting of a JSON document with all
      * the necessary elements set from the HttpServletRequest request.
      * 
@@ -219,17 +176,6 @@ public class JSONHelper {
                         .invoke(destObject, new Object[] { jsonObject.optString(fieldList[i].getName()) });
             }
         }
-    }
-
-    public static JSONArray joinJSONArrays(JSONArray a, JSONArray b) {
-        JSONArray comb = new JSONArray();
-        for (int i = 0; i < a.length(); i++) {
-            comb.put(a.optJSONObject(i));
-        }
-        for (int i = 0; i < b.length(); i++) {
-            comb.put(b.optJSONObject(i));
-        }
-        return comb;
     }
 
 }

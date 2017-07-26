@@ -33,7 +33,7 @@ import org.json.JSONObject;
  *  @author Azure Active Directory Contributor
  */
 @XmlRootElement
-public class User extends DirectoryObject{
+public class UserDetails extends DirectoryObject{
 	
 	// The following are the individual private members of a User object that holds
 	// a particular simple attribute of an User object.
@@ -72,7 +72,7 @@ public class User extends DirectoryObject{
 	protected String managerDisplayname;
 	
 	// The directReports holds a list of directReports
-	private ArrayList<User> directReports;
+	private ArrayList<UserDetails> directReports;
 	
 	// The groups holds a list of group entity this user belongs to. 
 	private ArrayList<Group> groups;
@@ -84,7 +84,7 @@ public class User extends DirectoryObject{
 	/**
 	 * The constructor for the User class. Initializes the dynamic lists and managerDisplayname variables.
 	 */
-	public User(){
+	public UserDetails(){
 		directReports = null;
 		groups = new ArrayList<Group>();
 		roles = new ArrayList<Group>();
