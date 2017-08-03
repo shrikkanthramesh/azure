@@ -11,15 +11,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-
-		// TODO: findout how to enable CSRF
 		http.authorizeRequests().antMatchers("/").permitAll()
-				// .and().csrf()
-				// .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
 				.and().csrf().disable();
-		// .anyRequest().authenticated()
-		// .filterSecurityInterceptorOncePerRequest(true)
-		// .and().addFilterAt(new AdalFilter(),BasicAuthenticationFilter.class);
 	}
 
 }
